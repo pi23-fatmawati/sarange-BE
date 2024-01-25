@@ -1,3 +1,5 @@
+npx sequelize-cli model:generate --name User --attributes "id_user:integer, user_name:string, email:string, phone_number:string, address:string, password:string, profile_pic:blob, role:enum('admin', 'user'), coin_user:integer"
+
 {
 "user_name": "Bimo",
 "email": "Bimo@gmail.com",
