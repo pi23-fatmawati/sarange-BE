@@ -37,3 +37,8 @@ use sarange_online;
 INSERT IGNORE INTO products (product_name, description, coin, min_product, product_pic, unit, createdAt, updatedAt)
 VALUES
 ('Botol kaca', 'Botol kaca ukuran kecil atau sedang', 75, 5, 'https://shorturl.at/prsP4', 'buah', NOW(), NOW());
+
+use sarange_online;
+INSERT IGNORE INTO products (product_name, description, coin, min_product, product_pic, unit, createdAt, updatedAt)
+VALUES
+('Botol plastik', 'Botol ukuran besar atau sedang', 50, 5, 'https://shorturl.at/prsP4', 'buah', NOW(), NOW());
