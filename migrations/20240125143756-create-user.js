@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       profile_pic: {
-        type: Sequelize.BLOB,
+        type: Sequelize.STRING,
       },
       role: {
         type: Sequelize.STRING,

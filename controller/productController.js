@@ -2,7 +2,15 @@ const { Product } = require("../models");
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      attributes: [
+        "product_name",
+        "product_pic",
+        "coin",
+        "min_product",
+        "unit",
+      ],
+    });
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
@@ -13,7 +21,9 @@ const getAllProducts = async (req, res) => {
 const getProductById = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await Product.findByPk(id);
+    const product = await Product.findByPk(id, {
+      attributes: ["product_name", "product_pic", "coin", "description"],
+    });
     if (product) {
       res.status(200).json(product);
     } else {
