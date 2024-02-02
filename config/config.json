@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Fatmawati3",
+    "password": "",
     "database": "sarange_online",
     "host": "localhost",
     "dialect": "mysql"
