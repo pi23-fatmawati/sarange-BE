@@ -1,18 +1,19 @@
-const { redeem } = require('../models');
-const { Coin_History } = require('../models');
+const { Redeem } = require("../models");
+const { Coin_History } = require("../models");
 
 const redeemCoin = async (req, res) => {
   try {
     const { coin_redeem, ...redeemData } = req.body;
-    const newRedeem = await redeem.create({
+    const newRedeem = await Redeem.create({
       ...redeemData,
-    coin_redeem: coin_redeem,});
+      coin_redeem: coin_redeem,
+    });
 
     if (newRedeem) {
       await Coin_History.create({
         coin_history: coin_redeem,
         id_redeem: newRedeem.id,
-        desc_transaction: 'Koin ditukar',
+        desc_transaction: "Koin ditukar",
       });
     }
 
@@ -24,5 +25,5 @@ const redeemCoin = async (req, res) => {
 };
 
 module.exports = {
-  redeemCoin
+  redeemCoin,
 };

@@ -2,29 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Redeems", {
+    await queryInterface.createTable("Cart", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      phone_number: {
-        type: Sequelize.STRING,
-      },
-      date_time: {
-        allowNull: false,
-        defaultValue: Sequelize.NOW,
-        type: Sequelize.DATE,
-      },
-      e_wallet: {
-        type: Sequelize.ENUM("gopay", "dana", "shopeepay", "ovo"),
-      },
-      money_get: {
+      id_user: {
         type: Sequelize.INTEGER,
       },
-      coin_redeem: {
+      id_product: {
         type: Sequelize.INTEGER,
+      },
+      total_coin: {
+        type: Sequelize.INTEGER,
+      },
+      total_product: {
+        type: Sequelize.INTEGER,
+      },
+      is_sold: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Redeems");
+    await queryInterface.dropTable("Carts");
   },
 };

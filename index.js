@@ -4,8 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
-const redeemRoutes = require('./routes/redeem');
-const coinHistoryRoutes = require('./routes/coin-history')
+const cartRoutes = require("./routes/cart");
+const coinHistoryRoutes = require("./routes/coin-history");
+const redeemRoutes = require("./routes/redeem");
 const middleware = require("./middleware/mid");
 const { authenticateToken } = require("./middleware/mid");
 const app = express();
@@ -13,8 +14,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/", userRoutes);
 app.use("/", productRoutes);
-app.use("/", redeemRoutes);
 app.use("/", coinHistoryRoutes);
+app.use("/", redeemRoutes);
 app.use("/", authenticateToken, productRoutes);
+app.use("/", authenticateToken, cartRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
