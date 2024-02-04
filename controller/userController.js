@@ -118,7 +118,7 @@ module.exports = {
       // Constructing full URL for profile picture
       let profilePicUrl = null;
       if (userProfile.profile_pic) {
-        profilePicUrl = `http://localhost:8000/Images/${userProfile.profile_pic}`;
+        profilePicUrl = `https://final-sarange-eff62c954ab5.herokuapp.com/Images/${userProfile.profile_pic}`;
       }
 
       const filteredProfile = {
