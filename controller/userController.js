@@ -115,13 +115,18 @@ module.exports = {
       if (!userProfile) {
         return res.status(404).json({ error: "User not found" });
       }
+      // Constructing full URL for profile picture
+      let profilePicUrl = null;
+      if (userProfile.profile_pic) {
+        profilePicUrl = `http://localhost:8000/Images/${userProfile.profile_pic}`;
+      }
 
       const filteredProfile = {
         user_name: userProfile.user_name,
         email: userProfile.email,
         phone_number: userProfile.phone_number,
         address: userProfile.address,
-        profile_pic: userProfile.profile_pic,
+        profile_pic: profilePicUrl,
       };
 
       res.status(200).json({ user: filteredProfile });

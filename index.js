@@ -12,7 +12,7 @@ const { authenticateToken } = require("./middleware/mid");
 const cors = require("cors");
 
 const app = express();
-
+app.use("/Images", express.static("Images"));
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/", userRoutes);
