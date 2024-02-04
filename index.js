@@ -13,8 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/", userRoutes);
 app.use("/", productRoutes);
-app.use("/", redeemRoutes);
 app.use("/", coinHistoryRoutes);
+app.use("/", authenticateToken, redeemRoutes);
 app.use("/", authenticateToken, productRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

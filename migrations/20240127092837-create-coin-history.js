@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Coin_Histories', {
-      id: {
+      id_coin_history: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -18,7 +18,7 @@ module.exports = {
       },
       id_redeem: {
         allowNull: false,
-        references: { model: 'redeems', key: 'id' },
+        references: { model: 'Redeems', key: 'id_redeem' },
         type: Sequelize.INTEGER
       },
       createdAt: {

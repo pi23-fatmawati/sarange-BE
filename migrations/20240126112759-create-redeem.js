@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Redeems', {
-      id: {
+      id_redeem: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -13,8 +13,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       date_time: {
-        allowNull: false,
-        defaultValue: Sequelize.NOW,
         type: Sequelize.DATE
       },
       e_wallet: {
@@ -24,6 +22,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       coin_redeem: {
+        type: Sequelize.INTEGER
+      },
+      id_user: {
+        allowNull: false,
+        references: { model: 'Users', key: 'id_user' },
         type: Sequelize.INTEGER
       },
       createdAt: {
