@@ -18,7 +18,7 @@ app.use(cors());
 app.use("/", userRoutes);
 app.use("/", productRoutes);
 app.use("/", coinHistoryRoutes);
-app.use("/", redeemRoutes);
+app.use("/", authenticateToken, redeemRoutes);
 app.use("/", authenticateToken, productRoutes);
 app.use("/", authenticateToken, cartRoutes);
 

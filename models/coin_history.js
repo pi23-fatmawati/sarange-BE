@@ -8,13 +8,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Coin_History.belongsTo(models.redeem, { foreignKey: "id_redeem" });
+      Coin_History.belongsTo(models.Redeem, { foreignKey: "id_redeem" });
     }
   }
   Coin_History.init(
     {
+      id_coin_history: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       desc_transaction: DataTypes.STRING,
       coin_history: DataTypes.INTEGER,
+      id_redeem: DataTypes.INTEGER,
     },
     {
       sequelize,

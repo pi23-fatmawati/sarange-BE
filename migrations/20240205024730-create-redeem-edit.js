@@ -2,23 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Coin_Histories", {
-      id: {
+    await queryInterface.createTable("Redeems", {
+      id_redeem: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      desc_transaction: {
-        type: Sequelize.ENUM("Koin ditukar", "Koin bertambah"),
+      phone_number: {
+        type: Sequelize.STRING,
       },
-      coin_history: {
+      date_time: {
+        type: Sequelize.DATE,
+      },
+      e_wallet: {
+        type: Sequelize.ENUM("gopay", "dana", "shopeepay", "ovo"),
+      },
+      money_get: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
-      id_redeem: {
+      coin_redeem: {
+        type: Sequelize.INTEGER,
+      },
+      id_user: {
         allowNull: false,
-        references: { model: "Redeems", key: "id" },
+        references: { model: "Users", key: "id_user" },
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -32,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Coin_Histories");
+    await queryInterface.dropTable("Redeems");
   },
 };
