@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       product_name: DataTypes.STRING,
+      category: DataTypes.ENUM("Kertas", "Plastik", "Kaca", "Karung Plastik", "Tetra Pack"),
       description: DataTypes.STRING,
       coin: DataTypes.INTEGER,
       min_product: DataTypes.INTEGER,

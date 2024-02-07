@@ -1,4 +1,4 @@
-const { Transactions, Cart, Product } = require("../models");
+const { Transactions, Cart, Product, User } = require("../models");
 
 const createTransaction = async (req, res) => {
   try {
@@ -138,7 +138,7 @@ const confirmTransaction = async (req, res) => {
     const existingTransaction = await Transactions.findOne({
       where: {
         id_transaction,
-        status: "Konfirmasi",
+        status: "Diproses" || "Konfirmasi",
       },
     });
 
@@ -159,6 +159,74 @@ const confirmTransaction = async (req, res) => {
   }
 };
 
+const calculateMetrics = async (req, res) => {
+  try {
+    const transactions = await Transactions.findAll({
+      where: {
+        status: "Selesai",
+      },
+      include: [
+        {
+          model: Cart,
+          include: [Product],
+        },
+      ],
+    });
+
+    if (transactions.length === 0) {
+      return res.status(404).json({
+        message: "Belum ada transaksi selesai",
+      });
+    }
+
+    const emissionFactors = transactions.map((transaction) => {
+      if (transaction.Carts && transaction.Carts.length > 0) {
+        return transaction.Carts.map((cart) => {
+          const { total_product, Product } = cart;
+          return calculateEmissionFactor(total_product, Product.category);
+        });
+      } else {
+        return [];
+      }
+    });
+
+    const newEmissionFactors = [].concat(...emissionFactors);
+    console.log(newEmissionFactors)
+    const totalEmissionFactor = newEmissionFactors.reduce(
+      (total, factor) => total + factor,
+      0
+    );
+
+    res.status(200).json({
+      message: "Berhasil menghitung faktor emisi",
+      totalEmissionFactor,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const calculateEmissionFactor = (totalProduct, category) => {
+  if (category === null) {
+    return 0;
+  }
+
+  switch (category) {
+    case "Kertas":
+      return totalProduct * 0.43;
+    case "Plastik":
+      return totalProduct * 1.4;
+    case "Kaca":
+      return totalProduct * 0.21;
+    case "Tetra Pack":
+      return totalProduct * 0.84;
+    case "Karung Plastik":
+      return totalProduct * 2.5;
+    default:
+      return 0;
+  }
+};
+
 module.exports = {
   createTransaction,
   getAllTransactions,
@@ -166,4 +234,5 @@ module.exports = {
   getTransactionToConfirm,
   getTransactionSuccess,
   confirmTransaction,
+  calculateMetrics,
 };

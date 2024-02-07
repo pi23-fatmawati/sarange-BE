@@ -12,6 +12,9 @@ module.exports = {
       product_name: {
         type: Sequelize.STRING,
       },
+      category: {
+        type: Sequelize.ENUM("Kertas", "Plastik", "Kaca", "Karung Plastik", "Tetra Pack"),
+      },
       description: {
         type: Sequelize.STRING,
       },

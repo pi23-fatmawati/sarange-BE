@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Cart.belongsTo(models.User, { foreignKey: "id_user" });
       Cart.belongsTo(models.Product, { foreignKey: "id_product" });
+      Cart.belongsTo(models.Transactions, { foreignKey: "id_cart" });
     }
   }
   Cart.init(
