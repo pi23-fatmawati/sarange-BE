@@ -10,17 +10,29 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cart.init(
     {
+      id_cart: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       id_user: DataTypes.INTEGER,
       id_product: DataTypes.INTEGER,
       total_coin: DataTypes.INTEGER,
       total_product: DataTypes.INTEGER,
-      is_sold: DataTypes.BOOLEAN,
+      is_sold: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      is_check: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
       modelName: "Cart",
-      tableName: "Cart", // Make sure this matches your table name exactly
-      // timestamps: false, // Set this to true if you have timestamps in your table
+      tableName: "Cart",
     }
   );
   return Cart;
