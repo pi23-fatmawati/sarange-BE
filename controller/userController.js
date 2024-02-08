@@ -43,6 +43,13 @@ async function getUserProfile(userId) {
 module.exports = {
   async register(req, res) {
     try {
+      const existingUser = await User.findOne({
+        where: { email: req.body.email },
+      });
+
+      if (existingUser) {
+        return res.status(400).json({ error: "Data sudah ada di database" });
+      }
       const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
       const newUser = await User.create({
         ...req.body,
