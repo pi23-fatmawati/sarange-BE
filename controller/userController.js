@@ -41,10 +41,10 @@ async function getUserProfile(userId) {
 }
 
 module.exports = {
-  register(req, res) {
+  async register(req, res) {
     try {
       const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
-      const newUser = User.create({
+      const newUser = await User.create({
         ...req.body,
         password: hashedPassword,
       });
@@ -52,7 +52,7 @@ module.exports = {
         userId: newUser.id_user,
         email: newUser.email,
       });
-      res.status(201).json({ user: newUser, token });
+      res.status(201).json({ token, user: newUser });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
