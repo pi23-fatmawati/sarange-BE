@@ -4,6 +4,7 @@ const getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({
       attributes: [
+        "id_product",
         "product_name",
         "product_pic",
         "coin",
@@ -22,7 +23,13 @@ const getProductById = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await Product.findByPk(id, {
-      attributes: ["product_name", "product_pic", "coin", "description"],
+      attributes: [
+        "id_product",
+        "product_name",
+        "product_pic",
+        "coin",
+        "description",
+      ],
     });
     if (product) {
       res.status(200).json(product);
