@@ -19,6 +19,7 @@ module.exports = {
       id_product: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'Products', key: 'id_product' }
       },
       total_coin: {
         type: Sequelize.INTEGER,

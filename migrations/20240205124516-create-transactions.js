@@ -1,9 +1,9 @@
-'use strict';
-const { DataTypes } = require('sequelize');
+"use strict";
+const { DataTypes } = require("sequelize");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable("Transactions", {
       id_transaction: {
         allowNull: false,
         autoIncrement: true,
@@ -14,13 +14,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Cart',
-          key: 'id_cart',
+          model: "Cart",
+          key: "id_cart",
         },
       },
       status: {
         type: Sequelize.ENUM("Diproses", "Konfirmasi", "Selesai"),
-        defaultValue: 'Diproses',
+        defaultValue: "Diproses",
       },
       pickup_date: {
         type: Sequelize.DATE,
@@ -38,6 +38,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable("Transactions");
   },
 };

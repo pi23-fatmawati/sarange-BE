@@ -1,4 +1,10 @@
-const { Transactions, Cart, Product } = require("../models");
+const {
+  User,
+  Transactions,
+  Cart,
+  Product,
+  Coin_History,
+} = require("../models");
 
 const createTransaction = async (req, res) => {
   try {
@@ -24,6 +30,7 @@ const createTransaction = async (req, res) => {
             id_cart: existingCartItem.id_cart,
             status: "Diproses",
             pickup_date: pickup_date,
+            id_user: req.user.userId,
           });
 
           await existingCartItem.update({ is_check: false, is_sold: true });
@@ -140,6 +147,7 @@ const confirmTransaction = async (req, res) => {
         id_transaction,
         status: "Konfirmasi",
       },
+      include: [{ model: Cart }],
     });
 
     if (!existingTransaction) {
@@ -150,9 +158,28 @@ const confirmTransaction = async (req, res) => {
 
     await existingTransaction.update({ status: "Selesai" });
 
+    const totalCoin = existingTransaction.Cart.total_coin;
+
+    // Mengambil pengguna yang sedang login
+    const user = await User.findByPk(req.user.userId); // Menggunakan model User untuk mengambil pengguna berdasarkan ID
+
+    // Menambahkan koin ke pengguna yang sedang login
+    user.coin_user += totalCoin;
+
+    // Menyimpan perubahan koin pengguna
+    await user.save();
+
+    // Membuat catatan histori koin
+    const coinHistory = await Coin_History.create({
+      desc_transaction: "Koin bertambah",
+      coin_history: totalCoin,
+      id_transaction: existingTransaction.id_transaction,
+    });
+
     res.status(200).json({
       message: `ID Transaksi ${id_transaction} telah dikonfirmasi dan selesai`,
       transaction: existingTransaction,
+      coinHistory,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
