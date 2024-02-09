@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Redeem, { foreignKey: "id_user" });
+      User.hasMany(models.Transactions, { foreignKey: "id_user" });
     }
   }
   User.init(

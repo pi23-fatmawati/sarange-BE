@@ -7,6 +7,7 @@ const productRoutes = require("./routes/products");
 const cartRoutes = require("./routes/cart");
 const coinHistoryRoutes = require("./routes/coin-history");
 const redeemRoutes = require("./routes/redeem");
+const transactionRoutes = require("./routes/transaction");
 const middleware = require("./middleware/mid");
 const { authenticateToken } = require("./middleware/mid");
 const cors = require("cors");
@@ -21,5 +22,5 @@ app.use("/", coinHistoryRoutes);
 app.use("/", authenticateToken, redeemRoutes);
 app.use("/", authenticateToken, productRoutes);
 app.use("/", authenticateToken, cartRoutes);
-
+app.use("/", authenticateToken, transactionRoutes);
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

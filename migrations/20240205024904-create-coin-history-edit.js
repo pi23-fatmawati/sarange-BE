@@ -16,8 +16,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      id_transaction: {
+        references: { model: "Transactions", key: "id_transaction" },
+        type: Sequelize.INTEGER,
+      },
       id_redeem: {
-        allowNull: false,
+        allowNull: true,
         references: { model: "Redeems", key: "id_redeem" },
         type: Sequelize.INTEGER,
       },
