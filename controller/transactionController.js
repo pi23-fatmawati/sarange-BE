@@ -56,6 +56,7 @@ const getAllTransactions = async (req, res) => {
         id_user: req.user.userId,
         is_sold: true,
       },
+      include: [{ model: Product }],
     });
     if (transactions.length == 0) {
       return res.status(404).json({
@@ -78,6 +79,16 @@ const getTransactionOnProcess = async (req, res) => {
       where: {
         status: "Diproses",
       },
+      include: [
+        {
+          model: Cart,
+          include: [
+            {
+              model: Product,
+            },
+          ],
+        },
+      ],
     });
     if (transactions.length == 0) {
       return res.status(404).json({
@@ -100,6 +111,7 @@ const getTransactionToConfirm = async (req, res) => {
       where: {
         status: "Konfirmasi",
       },
+      include: [{ model: Cart, include: [{ model: Product }] }],
     });
     if (transactions.length == 0) {
       return res.status(404).json({
@@ -122,6 +134,7 @@ const getTransactionSuccess = async (req, res) => {
       where: {
         status: "Selesai",
       },
+      include: [{ model: Cart, include: [{ model: Product }] }],
     });
     if (transactions.length == 0) {
       return res.status(404).json({
