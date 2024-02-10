@@ -39,6 +39,12 @@ const createTransaction = async (req, res) => {
         }
       })
     );
+    if (transactions.length === 0) {
+      return res.status(404).json({
+        message:
+          "Gagal membuat transaksi. Tidak ada transaksi yang berhasil dibuat.",
+      });
+    }
 
     res.status(201).json({
       message: "Transaksi berhasil dibuat",
