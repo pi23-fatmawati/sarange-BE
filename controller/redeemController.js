@@ -1,4 +1,4 @@
-const { Redeem, User, Coin_History } = require("../models");
+const { Redeems, User, Coin_History } = require("../models");
 
 const redeemCoin = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const redeemCoin = async (req, res) => {
 
     if (user) {
       const { coin_redeem, ...redeemData } = req.body;
-      const newRedeem = await Redeem.create({
+      const newRedeem = await Redeems.create({
         ...redeemData,
         id_user,
         coin_redeem: coin_redeem,
