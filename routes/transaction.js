@@ -8,5 +8,6 @@ router.get("/transaction/process", cartController.getTransactionOnProcess);
 router.get("/transaction/confirm", cartController.getTransactionToConfirm);
 router.get("/transaction/success", cartController.getTransactionSuccess);
 router.patch("/transaction", cartController.confirmTransaction);
+router.patch("/transaction/:id", cartController.confirmTransactionById);
 
 module.exports = router;

@@ -205,6 +205,53 @@ const confirmTransaction = async (req, res) => {
   }
 };
 
+const confirmTransactionById = async (req, res) => {
+  try {
+    const { id } = req.params; // Mendapatkan ID transaksi dari parameter URL
+    const existingTransaction = await Transactions.findOne({
+      where: {
+        id_transaction: id,
+        status: "Konfirmasi",
+      },
+      include: [{ model: Cart }],
+    });
+
+    if (!existingTransaction) {
+      return res.status(404).json({
+        message: `Transaksi dengan ID ${id} tidak ditemukan, atau status bukan "Konfirmasi", atau belum terjual.`,
+      });
+    }
+
+    await existingTransaction.update({ status: "Selesai" });
+
+    const totalCoin = existingTransaction.Cart.total_coin;
+
+    // Mengambil pengguna yang sedang login
+    const user = await User.findByPk(req.user.userId); // Menggunakan model User untuk mengambil pengguna berdasarkan ID
+
+    // Menambahkan koin ke pengguna yang sedang login
+    user.coin_user += totalCoin;
+
+    // Menyimpan perubahan koin pengguna
+    await user.save();
+
+    // Membuat catatan histori koin
+    const coinHistory = await Coin_History.create({
+      desc_transaction: "Koin bertambah",
+      coin_history: totalCoin,
+      id_transaction: existingTransaction.id_transaction,
+    });
+
+    res.status(200).json({
+      message: `Transaksi dengan ID ${id} telah dikonfirmasi dan selesai.`,
+      transaction: existingTransaction,
+      coinHistory,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createTransaction,
   getAllTransactions,
@@ -212,4 +259,5 @@ module.exports = {
   getTransactionToConfirm,
   getTransactionSuccess,
   confirmTransaction,
+  confirmTransactionById,
 };
