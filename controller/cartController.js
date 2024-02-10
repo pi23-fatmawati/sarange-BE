@@ -54,7 +54,10 @@ const addToCart = async (req, res) => {
 const getAllCart = async (req, res) => {
   try {
     const id_user = req.user.userId;
-    const carts = await Cart.findAll({ where: { id_user, is_sold: false } });
+    const carts = await Cart.findAll({
+      where: { id_user, is_sold: false },
+      include: [{ model: Product }],
+    });
     if (carts.length === 0) {
       return res.status(404).json({ message: "Tidak ada produk di keranjang" });
     }
