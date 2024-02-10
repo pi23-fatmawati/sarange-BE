@@ -26,7 +26,7 @@ require("dotenv").config();
 module.exports = {
   development: {
     username: process.env.DB_USERNAME || "freedb_be_fatmawati_user",
-    password: process.env.DB_PASSWORD || "T&*af9H6Y%PZSuf",
+    password: process.env.DB_PASSWORD || "TZQ#hcbdUX3pf6$",
     database: process.env.DB_NAME || "freedb_be_fatmawati",
     host: process.env.DB_HOST || "sql.freedb.tech",
     dialect: "mysql",
@@ -40,7 +40,7 @@ module.exports = {
   },
   production: {
     username: process.env.DB_USERNAME || "freedb_be_fatmawati_user",
-    password: process.env.DB_PASSWORD || "T&*af9H6Y%PZSuf",
+    password: process.env.DB_PASSWORD || "TZQ#hcbdUX3pf6$",
     database: process.env.DB_NAME || "freedb_be_fatmawati",
     host: process.env.DB_HOST || "sql.freedb.tech",
     dialect: "mysql",
