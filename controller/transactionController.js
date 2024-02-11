@@ -84,6 +84,7 @@ const getTransactionOnProcess = async (req, res) => {
     const transactions = await Transactions.findAll({
       where: {
         status: "Diproses",
+        id_user: req.user.userId,
       },
       include: [
         {
@@ -116,6 +117,7 @@ const getTransactionToConfirm = async (req, res) => {
     const transactions = await Transactions.findAll({
       where: {
         status: "Konfirmasi",
+        id_user: req.user.userId,
       },
       include: [{ model: Cart, include: [{ model: Product }] }],
     });
@@ -139,6 +141,7 @@ const getTransactionSuccess = async (req, res) => {
     const transactions = await Transactions.findAll({
       where: {
         status: "Selesai",
+        id_user: req.user.userId,
       },
       include: [{ model: Cart, include: [{ model: Product }] }],
     });
