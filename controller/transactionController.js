@@ -166,6 +166,7 @@ const confirmTransaction = async (req, res) => {
 
     const existingTransaction = await Transactions.findOne({
       where: {
+        id_user: req.user.userId,
         id_transaction,
         status: "Konfirmasi",
       },
@@ -210,9 +211,10 @@ const confirmTransaction = async (req, res) => {
 
 const confirmTransactionById = async (req, res) => {
   try {
-    const { id } = req.params; // Mendapatkan ID transaksi dari parameter URL
+    const { id } = req.params;
     const existingTransaction = await Transactions.findOne({
       where: {
+        id_user: req.user.userId,
         id_transaction: id,
         status: "Konfirmasi",
       },
@@ -228,17 +230,10 @@ const confirmTransactionById = async (req, res) => {
     await existingTransaction.update({ status: "Selesai" });
 
     const totalCoin = existingTransaction.Cart.total_coin;
-
-    // Mengambil pengguna yang sedang login
-    const user = await User.findByPk(req.user.userId); // Menggunakan model User untuk mengambil pengguna berdasarkan ID
-
-    // Menambahkan koin ke pengguna yang sedang login
+    const user = await User.findByPk(req.user.userId);
     user.coin_user += totalCoin;
-
-    // Menyimpan perubahan koin pengguna
     await user.save();
 
-    // Membuat catatan histori koin
     const coinHistory = await Coin_History.create({
       desc_transaction: "Koin bertambah",
       coin_history: totalCoin,

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Coin_History.belongsTo(models.Transactions, {
         foreignKey: "id_transaction",
       });
+      Coin_History.belongsTo(models.User, { foreignKey: "id_user" });
     }
   }
   Coin_History.init(
