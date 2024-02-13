@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       coin_history: DataTypes.INTEGER,
       id_transaction: DataTypes.INTEGER,
       id_redeem: DataTypes.INTEGER,
+      id_user: DataTypes.INTEGER
     },
     {
       sequelize,

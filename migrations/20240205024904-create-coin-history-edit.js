@@ -25,6 +25,11 @@ module.exports = {
         references: { model: "Redeems", key: "id_redeem" },
         type: Sequelize.INTEGER,
       },
+      id_user: {
+        allowNull: false,
+        references: { model: "Users", key: "id_user" },
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

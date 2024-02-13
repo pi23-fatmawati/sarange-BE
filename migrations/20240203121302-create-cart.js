@@ -13,12 +13,14 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       id_user: {
-        type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: "Users", key: "id_user" },
+        type: Sequelize.INTEGER,
       },
       id_product: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: "Products", key: "id_product" },
       },
       total_coin: {
         type: Sequelize.INTEGER,

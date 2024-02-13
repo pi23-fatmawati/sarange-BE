@@ -238,6 +238,7 @@ const confirmTransactionById = async (req, res) => {
       desc_transaction: "Koin bertambah",
       coin_history: totalCoin,
       id_transaction: existingTransaction.id_transaction,
+      id_user: req.user.userId
     });
 
     res.status(200).json({

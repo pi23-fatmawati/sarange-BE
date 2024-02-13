@@ -23,6 +23,7 @@ const redeemCoin = async (req, res) => {
           coin_history: coin_redeem,
           id_redeem: newRedeem.id_redeem,
           desc_transaction: "Koin ditukar",
+          id_user: id_user,
         });
 
         res.status(201).json(newRedeem);
