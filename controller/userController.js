@@ -99,6 +99,7 @@ module.exports = {
       }
 
       const filteredProfile = {
+        id_user: userProfile.id_user,
         user_name: userProfile.user_name,
         coin_user: userProfile.coin_user,
       };
@@ -129,6 +130,7 @@ module.exports = {
       }
 
       const filteredProfile = {
+        id_user: userProfile.id_user,
         user_name: userProfile.user_name,
         email: userProfile.email,
         phone_number: userProfile.phone_number,
